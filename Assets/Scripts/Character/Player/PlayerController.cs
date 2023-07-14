@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [Header("Player Control Settings")]
     [SerializeField] private float walkSpeed = 8f;
     [SerializeField] private float runSpeed = 12f;
+    [SerializeField] private float gravityModifer = 0.95f;
+    [SerializeField] private float jumpPower = 0.25f;
     [Header("Mouse Control Options")]
     [SerializeField] float mouseSensivity = 1f;
     [SerializeField] float maxViewAngle = 60f;
@@ -20,6 +22,10 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
 
+
+    private Vector3 heightMovement;
+
+    private bool jump = false;
 
     private Transform mainCamera;
 
@@ -35,7 +41,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        OnKeyboardInput();
+        KeyboardInput();
     }
 
   
@@ -70,19 +76,38 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
+
+        if (jump)
+        {
+            heightMovement.y = jumpPower;
+            jump = false;
+        }
+
+        heightMovement.y-=gravityModifer*Time.deltaTime;
+
         Vector3 localVerticalVector = transform.forward * verticalInput; // baðtýðýn yöne gidebilsin diye vertical ve horizontali böyle yazdým
         Vector3 localHorizontalVector = transform.right * horizontalInput;
 
         Vector3 movmentVector = localHorizontalVector + localVerticalVector;
         movmentVector.Normalize();              // normal giderken hýz 8 sað çapraza giderken 8.4 olmasýn diye yazdým sebebi vectorel
         movmentVector *= currentSpeed * Time.deltaTime;
-        characterController.Move(movmentVector);
+        characterController.Move(movmentVector+heightMovement);
+
+        if (characterController.isGrounded)
+        {
+            heightMovement.y = 0f;
+        }
     }
 
-    private void OnKeyboardInput()
+    private void KeyboardInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetKeyDown(KeyCode.Space)&&characterController.isGrounded)
+        {
+            jump = true;
+        }
 
         if (Input.GetKey(KeyCode.LeftShift))
         {

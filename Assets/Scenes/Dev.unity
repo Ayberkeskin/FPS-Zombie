@@ -1212,7 +1212,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 400340561825770124, guid: c7784d3f6dc05f6419a0781aafd0f66d, type: 3}
       propertyPath: mouseSensivity
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4977308532382694414, guid: c7784d3f6dc05f6419a0781aafd0f66d, type: 3}
       propertyPath: m_RootOrder

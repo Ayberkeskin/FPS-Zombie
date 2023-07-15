@@ -39,6 +39,30 @@ public class EnemyController : MonoBehaviour
         StateExecute();
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position,chaseRange);
+
+        switch (curentState)
+        {
+            case State.Search:
+                Gizmos.color = Color.blue;
+                Vector3  targetPos=new Vector3(agent.destination.x,transform.position.y,agent.destination.z);
+                Gizmos.DrawLine(transform.position, targetPos);
+                break;
+            case State.Chase:
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawLine (transform.position,player.position);
+                break;
+            case State.Attack:
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(transform.position, player.position);
+                break;
+        }
+    }
+  
+
     private void StateCheck()
     {
         float distanceToTarget=Vector3.Distance(player.position,transform.position);
@@ -101,6 +125,7 @@ public class EnemyController : MonoBehaviour
         {
             return;
         }
+        agent.velocity = Vector3.zero;
         agent.isStopped = true; // enemyinin hýzýný sýfýra çeker durdurur
         LookTheTargert(player.position);
     }

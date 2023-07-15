@@ -1275,14 +1275,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 442240626805684374, guid: 47b5bbb03ab1c00479fe08e1db15f5f7, type: 3}
-      propertyPath: m_Acceleration
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 442240626805684374, guid: 47b5bbb03ab1c00479fe08e1db15f5f7, type: 3}
-      propertyPath: m_AngularSpeed
-      value: 600
-      objectReference: {fileID: 0}
     - target: {fileID: 6246227079423744417, guid: 47b5bbb03ab1c00479fe08e1db15f5f7, type: 3}
       propertyPath: m_Name
       value: Enemy

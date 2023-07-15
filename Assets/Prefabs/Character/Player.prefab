@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4132734619244240087}
   - component: {fileID: 6553799024657567788}
   - component: {fileID: 5166184783479514282}
+  - component: {fileID: 2128832125901307039}
   - component: {fileID: 400340561825770124}
   m_Layer: 0
   m_Name: Player
@@ -34,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 3500460391992689861}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4132734619244240087
 MeshFilter:
@@ -112,6 +113,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &2128832125901307039
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7300725070887390197}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &400340561825770124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +148,101 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 8
   runSpeed: 12
+  gravityModifer: 0.95
+  jumpPower: 0.3
+  newMovmentInput:
+    m_Name: New Movment Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 4322d539-02e1-437c-b3dd-c70aefa9eecd
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: WASD
+      m_Id: 43a3ed75-fb25-40ad-946c-5138681dbeac
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: New Movment Input
+      m_Flags: 4
+    - m_Name: up
+      m_Id: ad04d953-ba79-4f79-9250-af7c993c478f
+      m_Path: <Keyboard>/w
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: New Movment Input
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 824b7d38-8671-4a8f-826f-b11f00addc74
+      m_Path: <Keyboard>/s
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: New Movment Input
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 253e9a3e-540b-4cf1-80f5-5117c12852f0
+      m_Path: <Keyboard>/a
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: New Movment Input
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 5f24a07f-84ba-421b-9e5d-115511d0a68b
+      m_Path: <Keyboard>/d
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: New Movment Input
+      m_Flags: 8
+    - m_Name: Arrow
+      m_Id: f7a4cecb-1e4e-4d31-8947-c1d7d9d2a66d
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: New Movment Input
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 29f426f0-b235-4369-b99b-a12792c37d1b
+      m_Path: <Keyboard>/upArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: New Movment Input
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 1766b427-2a12-4598-a133-a8d21fc6785b
+      m_Path: <Keyboard>/downArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: New Movment Input
+      m_Flags: 8
+    - m_Name: left
+      m_Id: 6154de48-b311-4d18-a6ad-17513a8a4687
+      m_Path: <Keyboard>/leftArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: New Movment Input
+      m_Flags: 8
+    - m_Name: right
+      m_Id: 108c1c57-bff9-42c4-891c-d76568a408cb
+      m_Path: <Keyboard>/rightArrow
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: New Movment Input
+      m_Flags: 8
+    m_Flags: 0
+  mouseSensivity: 1
+  maxViewAngle: 60
+  invertX: 0
+  invertY: 0
 --- !u!1 &8716378841238844514
 GameObject:
   m_ObjectHideFlags: 0

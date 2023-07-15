@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
 
     private void AnimationChanger()
     {
-        if (newMovmentInput.ReadValue<Vector2>().magnitude>0f)
+        if (newMovmentInput.ReadValue<Vector2>().magnitude>0f&& characterController.isGrounded)
         {
             if (currentSpeed==walkSpeed)
             {

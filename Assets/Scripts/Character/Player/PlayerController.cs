@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,9 +13,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float runSpeed = 12f;
     [SerializeField] private float gravityModifer = 0.95f;
     [SerializeField] private float jumpPower = 0.25f;
+    [SerializeField] private InputAction newMovmentInput;
     [Header("Mouse Control Options")]
     [SerializeField] float mouseSensivity = 1f;
     [SerializeField] float maxViewAngle = 60f;
+    [SerializeField] bool invertX;
+    [SerializeField] bool invertY;
 
     private CharacterController characterController;
 
@@ -29,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private Transform mainCamera;
 
-    void Start()
+    void Awake()
     {
         characterController=GetComponent<CharacterController>();
         if (Camera.main.GetComponent<CameraController>()==null)
@@ -37,6 +41,14 @@ public class PlayerController : MonoBehaviour
             Camera.main.gameObject.AddComponent<CameraController>();
         }
         mainCamera= GameObject.FindWithTag("CameraPoint").transform;
+    }
+    private void OnEnable()
+    {
+        newMovmentInput.Enable();
+    }
+    private void OnDisable()
+    {
+        newMovmentInput.Disable();
     }
 
     void Update()
@@ -101,15 +113,15 @@ public class PlayerController : MonoBehaviour
 
     private void KeyboardInput()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+        horizontalInput = newMovmentInput.ReadValue<Vector2>().x;
+        verticalInput = newMovmentInput.ReadValue<Vector2>().y;
 
-        if (Input.GetKeyDown(KeyCode.Space)&&characterController.isGrounded)
+        if (Keyboard.current.spaceKey.wasPressedThisFrame&&characterController.isGrounded)
         {
             jump = true;
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Keyboard.current.leftShiftKey.isPressed)
         {
             currentSpeed = runSpeed;
         }
@@ -120,7 +132,8 @@ public class PlayerController : MonoBehaviour
     }
     private Vector2 MouseInput()
     {
-        return new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"))*mouseSensivity; 
+        return new Vector2(invertX ? -Mouse.current.delta.x.ReadValue() : Mouse.current.delta.x.ReadValue(),
+            invertY ? -Mouse.current.delta.y.ReadValue() : Mouse.current.delta.y.ReadValue()) *mouseSensivity; 
     }
 
 }

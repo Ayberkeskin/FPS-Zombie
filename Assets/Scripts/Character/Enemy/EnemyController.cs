@@ -88,10 +88,8 @@ public class EnemyController : MonoBehaviour
         switch (curentState)
         {
             case State.Idle:
-                print("Idle");
                 break;
             case State.Search:
-                print("Search");
                 //agent.remainingDistance=hedef noktasý ile kendi arasýndaki kalan mesafeyi döndürür
                 if (!isSearched&&agent.remainingDistance<=0.1f||!agent.hasPath&&!isSearched)//agent.hasPath gidecek bir yer var yada yok döndürür
                 {
@@ -110,12 +108,10 @@ public class EnemyController : MonoBehaviour
                 }  
                 break;
             case State.Chase:
-                print("Chase");
                 Chase();
                 break;
             case State.Attack:
                 Attack();
-                print("Attack");
                 break;
         }
     }

@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float patrolWaitTime = 2f;
     [SerializeField] float chaseSpeed = 4f;
     [SerializeField] float searchSpeed = 3.5f;
+    [SerializeField] int damage= 2;
 
     private bool isSearched=false;
 
@@ -161,5 +162,10 @@ public class EnemyController : MonoBehaviour
         NavMesh.SamplePosition(randomDirection,out hit ,patrolRadius,1);//sondaki 1 navmeshde katmanlar var onu temsil ediyor sadece 1 tane var bizde
         // 1 yerine Navmesh.AllAreas yazarsan tüm bölgelerde çalýþ demek
         return hit.position;
+    }
+
+    public int GetDamage()
+    {  
+        return damage;
     }
 }

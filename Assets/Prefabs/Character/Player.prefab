@@ -23,10 +23,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5021948697634839088}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0.0063300785, y: -0.7253468, z: 0.0060070213, w: -0.6883284}
+  m_LocalPosition: {x: 0.353, y: -0.446, z: 0.942}
+  m_LocalScale: {x: 0.90000004, y: 0.90000004, z: 0.90000004}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 868346655737320763}
   m_RootOrder: -1
@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 868346655737320763}
+  - component: {fileID: 3860490494953223006}
   m_Layer: 0
   m_Name: WeaponRoot
   m_TagString: Untagged
@@ -63,6 +64,27 @@ Transform:
   m_Father: {fileID: 3500460391992689861}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &3860490494953223006
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317125908837778872}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0ad4eb78d815fca4e8f1e800b7fc2dce, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7300725070887390197
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,6 +100,7 @@ GameObject:
   - component: {fileID: 2128832125901307039}
   - component: {fileID: 400340561825770124}
   - component: {fileID: 134106079236991545}
+  - component: {fileID: 5467490044112360687}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -99,7 +122,7 @@ Transform:
   m_Children:
   - {fileID: 3500460391992689861}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4132734619244240087
 MeshFilter:
@@ -319,7 +342,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27f2f8a2e28e3647b578843bd4ba4e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapon: {fileID: 0}
+  currentWeapon: {fileID: 11400000, guid: 8b69e7d238b8be74088ef79fff0ee0ef, type: 2}
+--- !u!114 &5467490044112360687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7300725070887390197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a9a5a5d5182f3c4f865e9e8cd97988b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
 --- !u!1 &8716378841238844514
 GameObject:
   m_ObjectHideFlags: 0

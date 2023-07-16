@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2172695244312485491}
   - component: {fileID: 4364448011471272800}
   - component: {fileID: 6282614153040793970}
+  - component: {fileID: 6774399482333622817}
   - component: {fileID: 442240626805684374}
   m_Layer: 0
   m_Name: Enemy
@@ -124,7 +125,24 @@ MonoBehaviour:
   attackRange: 2
   chaseRange: 5
   turnSpeed: 15
+  patrolRadius: 6
+  patrolWaitTime: 2
+  chaseSpeed: 4
+  searchSpeed: 3.5
   curentState: 0
+--- !u!114 &6774399482333622817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6246227079423744417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a9a5a5d5182f3c4f865e9e8cd97988b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
 --- !u!195 &442240626805684374
 NavMeshAgent:
   m_ObjectHideFlags: 0

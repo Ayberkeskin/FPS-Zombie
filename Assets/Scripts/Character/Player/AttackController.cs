@@ -49,4 +49,13 @@ public class AttackController : MonoBehaviour
         yield return new WaitForSeconds(currentWeapon.AttackRate);
         isAttacking= false;
     }
+
+    public int GetDamage()
+    {
+        if (currentWeapon!=null)
+        {
+           return currentWeapon.Damage;
+        }
+        return 0;
+    }
 }

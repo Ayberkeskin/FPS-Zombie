@@ -42,6 +42,7 @@ public class EnemyController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
+        //daire ciz
         Gizmos.DrawSphere(transform.position,chaseRange);
 
         switch (curentState)
@@ -49,6 +50,7 @@ public class EnemyController : MonoBehaviour
             case State.Search:
                 Gizmos.color = Color.blue;
                 Vector3  targetPos=new Vector3(agent.destination.x,transform.position.y,agent.destination.z);
+                //cizgi ciz
                 Gizmos.DrawLine(transform.position, targetPos);
                 break;
             case State.Chase:
@@ -90,13 +92,19 @@ public class EnemyController : MonoBehaviour
                 break;
             case State.Search:
                 print("Search");
-                if (!isSearched&&agent.remainingDistance<=0.1f||!agent.hasPath&&!isSearched)
+                //agent.remainingDistance=hedef noktasý ile kendi arasýndaki kalan mesafeyi döndürür
+                if (!isSearched&&agent.remainingDistance<=0.1f||!agent.hasPath&&!isSearched)//agent.hasPath gidecek bir yer var yada yok döndürür
                 {
+                    //Navmesh açýk iken transformu deðiþtiremezsiniz navmeshi kapatman lazým
                     Vector3 agentTarget = new Vector3(agent.destination.x,transform.position.y,agent.destination.z);
+                    // Navmesh agentý kapatma
                     agent.enabled = false;
-                    transform.position = agentTarget;
-                    agent.enabled=true;
 
+                    transform.position = agentTarget;//pozisyonu deðiþtik normalde navmesh buna izin vermez ondan kapatýk
+
+                    //Navmesh agentý geri açma üst kýsým kapalý olduðunda olacak þeylerde Navmesh kapalý olacak Navmeshin izin vermediði þeyler olacak
+                    agent.enabled=true;
+                    //Invoke belli bir süre sonra fonksiyonu çalýþtýrýr
                     Invoke("Search",patrolWaitTime);
                     isSearched = true;
                 }  
@@ -126,7 +134,7 @@ public class EnemyController : MonoBehaviour
             return;
         }
         agent.velocity = Vector3.zero;
-        agent.isStopped = true; // enemyinin hýzýný sýfýra çeker durdurur
+        agent.isStopped = true; // enemyinin hýzýný sýfýra çeker durdurur ama hemen deðil yavasca ondan dolayý üste hýzý sýfýrladým
         LookTheTargert(player.position);
     }
 
@@ -138,6 +146,7 @@ public class EnemyController : MonoBehaviour
         }
         agent.isStopped = false;
         agent.speed = chaseSpeed;
+        //hedefe doðru hareket
         agent.SetDestination(player.position);
     }
     private void LookTheTargert(Vector3 target)
@@ -148,10 +157,13 @@ public class EnemyController : MonoBehaviour
     }
     private Vector3 GetRandomPosition()
     {
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * patrolRadius;
+        // Random.insideUnitSpher bir dairede random bir konum seçer 1 radiusluk ondan dolayý patrolRadius ile çarptýk
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * patrolRadius; 
         randomDirection += transform.position;
-        NavMeshHit hit;
-        NavMesh.SamplePosition(randomDirection,out hit ,patrolRadius,1);
+        NavMeshHit hit;// raycast hit gibi
+        //Navmesh üzerinde gidilebilir olup olmadýðýný kontrol eder eðer gidilemez ise en yakýn gidilebilir konumu verir
+        NavMesh.SamplePosition(randomDirection,out hit ,patrolRadius,1);//sondaki 1 navmeshde katmanlar var onu temsil ediyor sadece 1 tane var bizde
+        // 1 yerine Navmesh.AllAreas yazarsan tüm bölgelerde çalýþ demek
         return hit.position;
     }
 }

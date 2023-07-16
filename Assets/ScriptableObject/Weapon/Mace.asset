@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Mace
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 5213598714749682143, guid: 478ff0a4533fe6a4da58f78bf1739439, type: 3}
+  animOverride: {fileID: 22100000, guid: c4f1f85cbe1ca3448b49d7c61b48427d, type: 2}
   damage: 10
-  attackRate: 1
+  attackRate: 0.8
   positionOffset: {x: 0, y: 0, z: 0}
   scaleOffset: {x: 0, y: 0, z: 0}

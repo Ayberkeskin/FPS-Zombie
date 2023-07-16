@@ -5,6 +5,7 @@ public class WeaponData : ScriptableObject
 {
     [Header("Settings")]
     [SerializeField] GameObject weaponPrefab;
+    [SerializeField] AnimatorOverrideController animOverride;
     [SerializeField] int damage;
     [SerializeField] float attackRate;
     [SerializeField] Vector3 positionOffset=Vector3.zero;
@@ -17,12 +18,21 @@ public class WeaponData : ScriptableObject
     public float AttackRate { get => attackRate;  }
 
 
-    public void SpawnNewWeapon(Transform parent)
+    public void SpawnNewWeapon(Transform parent,Animator anim)
     {
-        weaponClone = Instantiate(weaponPrefab,Vector3.zero,Quaternion.identity, parent);
-        weaponClone.transform.position=parent.position;
-        weaponClone.transform.rotation=parent.rotation;
-        weaponClone.transform.localScale = weaponClone.transform.localScale+scaleOffset;
-        weaponClone.transform.localPosition = Vector3.zero + positionOffset;
+        if (weaponPrefab!=null)
+        {
+            weaponClone = Instantiate(weaponPrefab, Vector3.zero, Quaternion.identity, parent);
+            weaponClone.transform.position = parent.position;
+            weaponClone.transform.rotation = parent.rotation;
+            weaponClone.transform.localScale = weaponClone.transform.localScale + scaleOffset;
+            weaponClone.transform.localPosition = Vector3.zero + positionOffset;
+
+        }
+        if (animOverride!=null)
+        {
+            anim.runtimeAnimatorController = animOverride;  
+        }
+
     }
 }

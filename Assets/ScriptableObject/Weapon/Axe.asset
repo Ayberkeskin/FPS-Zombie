@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 2846288252128127089, guid: bda0e0a54afa7464ab2ce114082b55d6, type: 3}
+  animOverride: {fileID: 22100000, guid: b36ec581821285a44a6ddfcb27abf5b2, type: 2}
   damage: 5
-  attackRate: 2
+  attackRate: 1.5
   positionOffset: {x: 0, y: 0, z: 0}
   scaleOffset: {x: 0, y: 0, z: 0}

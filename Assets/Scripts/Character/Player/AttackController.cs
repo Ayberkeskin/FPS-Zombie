@@ -11,7 +11,9 @@ public class AttackController : MonoBehaviour
     private Transform mainCamera;
 
     private Animator anim;
-    private void Awake()
+
+    private bool isAttacking = false;
+    private void Start()
     {
         mainCamera = GameObject.FindWithTag("CameraPoint").transform;
         anim=mainCamera.transform.GetChild(0).GetComponent<Animator>();
@@ -25,18 +27,26 @@ public class AttackController : MonoBehaviour
 
     private void Attack()
     {
-        if (Mouse.current.leftButton.isPressed) 
+        if (Mouse.current.leftButton.isPressed&&!isAttacking) 
         {
-            anim.SetTrigger("Attack");
+            StartCoroutine(AttackRoutine());
         }
     }
 
     private void SpawnWeapon()
     {
-        if (currentWeapon== null)
+        if (currentWeapon== null|| anim == null)
         {
             return;
         }
-        currentWeapon.SpawnNewWeapon(mainCamera.transform.GetChild(0).GetChild(0));
+        currentWeapon.SpawnNewWeapon(mainCamera.transform.GetChild(0).GetChild(0),anim);
+    }
+
+    private IEnumerator AttackRoutine()
+    {
+        isAttacking = true;
+        anim.SetTrigger("Attack");
+        yield return new WaitForSeconds(currentWeapon.AttackRate);
+        isAttacking= false;
     }
 }

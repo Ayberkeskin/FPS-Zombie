@@ -33,22 +33,29 @@ public class Hit : MonoBehaviour
         else if (owner.tag == "Enemy")
         {
             damage=owner.GetComponent<EnemyController>().GetDamage();
+            anim=GetComponentInParent<Animator>();
+        }
+        else
+        {
+            enabled = false;
+
         }
     }
 
     private void Update()
     {
-        if (!anim.IsInTransition(0)&&anim.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
-            anim.GetCurrentAnimatorStateInfo(0).normalizedTime>=0.5f&&
-            anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.55f)
-        {
-            ControlTheColider(true);
-            print("Colider Open");
-        }
-        else
-        {
-            ControlTheColider(false);
-        }
+            if (!anim.IsInTransition(0) && anim.GetCurrentAnimatorStateInfo(0).IsName("Attack") &&
+          anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f &&
+          anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.55f)
+            {
+                ControlTheColider(true);
+                print("Colider Open");
+            }
+            else
+            {
+                ControlTheColider(false);
+            }
+      
     }
     private void OnTriggerEnter(Collider other)
     {

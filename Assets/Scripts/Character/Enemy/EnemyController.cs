@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,27 +13,32 @@ public class EnemyController : MonoBehaviour
         Attack
     }
 
-    private NavMeshAgent agent;
 
-    private Transform player;
-
-    [SerializeField] float attackRange = 2f;
+    [Header("Move Settings")]
     [SerializeField] float chaseRange = 5f;
     [SerializeField] float turnSpeed = 15f;
     [SerializeField] float patrolRadius = 6f;
     [SerializeField] float patrolWaitTime = 2f;
     [SerializeField] float chaseSpeed = 4f;
     [SerializeField] float searchSpeed = 3.5f;
-    [SerializeField] int damage= 2;
+    [Header("Attack Settings")]
+    [SerializeField] float attackRange = 1.4f;
+    [SerializeField] int damage= 5;
+    [SerializeField] float attackRate = 2f;
 
     private bool isSearched=false;
+    private bool isAttacking=false;
 
+    private Animator anim;
+    private NavMeshAgent agent;
+    private Transform player;
 
     [SerializeField] private State curentState=State.Idle;
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player").transform;
+        anim = GetComponent<Animator>();    
     }
     private void Update()
     {
@@ -68,6 +74,10 @@ public class EnemyController : MonoBehaviour
 
     private void StateCheck()
     {
+        if (player==null)
+        {
+            return;
+        }
         float distanceToTarget=Vector3.Distance(player.position,transform.position);
 
         if (distanceToTarget<=chaseRange&&distanceToTarget>attackRange)
@@ -105,6 +115,7 @@ public class EnemyController : MonoBehaviour
                     agent.enabled=true;
                     //Invoke belli bir süre sonra fonksiyonu çalýþtýrýr
                     Invoke("Search",patrolWaitTime);
+                    anim.SetBool("Walk",false);
                     isSearched = true;
                 }  
                 break;
@@ -122,6 +133,7 @@ public class EnemyController : MonoBehaviour
         agent.isStopped = false;
         agent.speed = searchSpeed;
         isSearched = false;
+        anim.SetBool("Walk", true);
         agent.SetDestination(GetRandomPosition());
     }
     private void Attack()
@@ -130,6 +142,11 @@ public class EnemyController : MonoBehaviour
         {
             return;
         }
+        if (!isAttacking)
+        {
+            StartCoroutine(AttackRoutine());
+        }
+        anim.SetBool("Walk", false);
         agent.velocity = Vector3.zero;
         agent.isStopped = true; // enemyinin hýzýný sýfýra çeker durdurur ama hemen deðil yavasca ondan dolayý üste hýzý sýfýrladým
         LookTheTargert(player.position);
@@ -143,8 +160,26 @@ public class EnemyController : MonoBehaviour
         }
         agent.isStopped = false;
         agent.speed = chaseSpeed;
+        anim.SetBool("Walk", true);
         //hedefe doðru hareket
         agent.SetDestination(player.position);
+    }
+    IEnumerator AttackRoutine() 
+    { 
+        isAttacking = true;
+        yield return new WaitForSeconds(attackRate);
+        anim.SetTrigger("Attack");
+        yield return new WaitUntil(()=> IsAttackAnimationFinished("Attack"));
+        isAttacking = false;
+    }
+    private bool IsAttackAnimationFinished(string animationName)
+    {
+        if (!anim.IsInTransition(0)&&anim.GetCurrentAnimatorStateInfo(0).IsName(animationName)
+            &&anim.GetCurrentAnimatorStateInfo(0).normalizedTime>=0.95f)
+        {
+            return true;
+        }
+        else { return false; }
     }
     private void LookTheTargert(Vector3 target)
     {
